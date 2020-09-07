@@ -2,6 +2,7 @@ from django.shortcuts import render
 from cart.cart import Cart
 # Create your views here.
 from .forms import OrderCreateForm
+from .models import OrderItem
 
 def order_create(request):
     cart = Cart(request)
@@ -10,7 +11,7 @@ def order_create(request):
         if form.is_valid():
             order = form.save()
             for item in cart:
-                OrderItem.object.create(
+                OrderItem.objects.create(
                     order=order,
                     product=item['product'],
                     price=item['product'],
@@ -20,4 +21,4 @@ def order_create(request):
             return render(request, 'created.html', {'order':order})
     else:
         form = OrderCreateForm()
-    return render(request, 'created.html', {'cart':cart, 'form':form})
+    return render(request, 'create.html', {'cart':cart, 'form':form})
