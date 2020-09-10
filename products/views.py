@@ -7,6 +7,7 @@ from .models import Category, Product
 from django.core.paginator import Paginator
 from cart.forms import CartAddProductForm
 
+
 def product_list(request, category_slug=None):  # category_slug is needed to create categories URL
 	# if categories don't exist, it has to be None
 	category = None
@@ -27,7 +28,6 @@ def product_list(request, category_slug=None):  # category_slug is needed to cre
 def product_detail(request, id, slug):
 	product = get_object_or_404(Product, slug=slug, id=id, status=True)
 	cart_product_form = CartAddProductForm()
-	return render(request, 'product_detail.html', context={'product': product,
-														   'cart_product_form': cart_product_form})
+	return render(request, 'product_detail.html', context={'product': product,  'cart_product_form': cart_product_form})
 
 
